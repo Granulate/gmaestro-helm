@@ -10,10 +10,10 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 Once Helm is set up properly, add the repo as follows:
 
 ```console
-$  helm repo add gmaestro https://kirshenboim.github.io/gmaestro/
+$  helm repo add gmaestro https://granulate.github.io/gmaestro-helm/
 ```
 
-You can then run `helm repo list | grep gmaestro` to see the charts.
+You can then run `helm repo list | grep gmaestro-helm` to see the charts.
 
 ## Contributing
 
