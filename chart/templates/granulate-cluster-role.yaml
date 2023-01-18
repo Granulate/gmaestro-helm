@@ -1,0 +1,121 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: granulate-cluster-role
+rules:
+- apiGroups:
+  - ''
+  - apps
+  - extensions
+  resources:
+  - nodes
+  - pods
+  - deployments
+  - daemonsets
+  - statefulsets
+  - replicasets
+  - replicationcontrollers
+  verbs:
+  - '*'
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - '*'
+- apiGroups:
+  - ''
+  - apps
+  - extensions
+  - policy
+  resources:
+  - services
+  - endpoints
+  - namespaces
+  - limitranges
+  - resourcequotas
+  - persistentvolumes
+  - persistentvolumeclaims
+  - poddisruptionbudget
+  - pods/log
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - nodes/spec
+  - nodes/stats
+  - nodes/proxy
+  - nodes/metrics
+  verbs:
+  - get
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resourceNames:
+  - granulate-cluster-role
+  resources:
+  - clusterroles
+  verbs:
+  - get
+- apiGroups:
+  - metrics.k8s.io
+  resources:
+  - '*'
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - external.metrics.k8s.io
+  resources:
+  - '*'
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - custom.metrics.k8s.io
+  resources:
+  - '*'
+  verbs:
+  - list
+  - get
+  - watch
+- nonResourceURLs:
+  - /version
+  - /healthz
+  - /healthz/*
+  - /metrics
+  verbs:
+  - get
+- apiGroups:
+  - argoproj.io
+  resources:
+  - rollouts
+  - rollouts/scale
+  - rollouts/status
+  - experiments
+  - analysistemplates
+  - clusteranalysistemplates
+  - analysisruns
+  verbs:
+  - '*'
+- apiGroups:
+  - apps
+  resourceNames:
+  - granulate-maestro
+  resources:
+  - deployments
+  verbs:
+  - '*'
+- apiGroups:
+  - ''
+  resourceNames:
+  - grafana-config
+  resources:
+  - configmaps
+  verbs:
+  - '*'

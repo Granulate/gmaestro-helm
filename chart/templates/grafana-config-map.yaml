@@ -1,0 +1,57 @@
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: {{ .Values.namespace }}
+apiVersion: v1
+data:
+  agent.yaml: |
+    server:
+      http_listen_port: 12345
+    prometheus:
+      wal_directory: /tmp/grafana-agent-wal
+      global:
+        scrape_interval: 60s
+        external_labels:
+          client_id: {{ .Values.b64ClientId }}
+          client_name: {{ .Values.clientName }}
+          service_name: {{ .Values.serviceName }}
+      configs:
+      - name: integrations
+        remote_write:
+        - url: https://prometheus-prod-10-prod-us-central-0.grafana.net/api/prom/push
+          basic_auth:
+            username: 297748
+            password: {{ .Values.secrets.grafanaMetricsAuthKey }}
+        scrape_configs:
+        - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+          job_name: maestro-metrics-collection
+          kubernetes_sd_configs:
+              - role: pod
+                selectors:
+                  - role: "pod"
+                    label: "app=granulate-maestro"
+          scheme: http
+          tls_config:
+              ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+              insecure_skip_verify: false
+              server_name: kubernetes
+    loki:
+      configs:
+      - name: default
+        positions:
+          filename: /tmp/positions.yaml
+        scrape_configs:
+          - job_name: maestro-logs
+            static_configs:
+              - targets: [localhost]
+                labels:
+                  job: maestro-logs
+                  __path__: /var/log/maestro.log
+                  client_id: {{ .Values.b64ClientId }}
+                  client_name: {{ .Values.clientName }}
+                  service_name: {{ .Values.serviceName }}
+        clients:
+          - url: https://logs-prod-us-central1.grafana.net/api/prom/push
+            basic_auth:
+              username: 147844
+              password: {{ .Values.secrets.grafanaLogsAuthKey }}

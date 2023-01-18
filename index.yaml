@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  gmaestro:
+  - apiVersion: v1
+    created: "2023-01-18T10:47:22.851453+02:00"
+    description: granulate gmaestro deployment helm-chart
+    digest: 699178f710e453be1d266f850776743185ccab735dba2fc1832fbf743ce3d040
+    name: gmaestro
+    type: application
+    urls:
+    - gmaestro-1.0.0-latest.tgz
+    version: 1.0.0-latest
+generated: "2023-01-18T10:47:22.849543+02:00"

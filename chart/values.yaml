@@ -1,0 +1,14 @@
+# -- granulate base 64 id
+b64ClientId: ""
+# -- plain text client name
+clientName: ""
+# -- plain text service name
+serviceName: ""
+# -- plain text namespace to deploy the gmaestro
+namespace: "default"
+
+secrets:
+  # -- grafana auth-key for metrics
+  grafanaMetricsAuthKey: ""
+  # -- grafana auth-key for logs
+  grafanaLogsAuthKey: ""
