@@ -2,8 +2,8 @@
 b64ClientId: ""
 # -- plain text client name
 clientName: ""
-# -- plain text service name
-serviceName: ""
+# -- plain text cluster name
+clusterName: ""
 # -- plain text namespace to deploy the gmaestro
 namespace: "default"
 

@@ -18,7 +18,7 @@ spec:
         - name: MAESTRO_CLIENT_ID
           value: {{ .Values.b64ClientId }}
         - name: MAESTRO_SERVICE_NAME
-          value: {{ .Values.serviceName }}
+          value: {{ .Values.clusterName }}
         - name: MAESTRO_DISABLE_CONFIGURATOR_SERVICE
           value: 'FALSE'
         - name: LOGS_ENABLE_STDOUT

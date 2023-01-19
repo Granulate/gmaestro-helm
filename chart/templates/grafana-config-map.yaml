@@ -14,7 +14,7 @@ data:
         external_labels:
           client_id: {{ .Values.b64ClientId }}
           client_name: {{ .Values.clientName }}
-          service_name: {{ .Values.serviceName }}
+          service_name: {{ .Values.clusterName }}
       configs:
       - name: integrations
         remote_write:
@@ -49,7 +49,7 @@ data:
                   __path__: /var/log/maestro.log
                   client_id: {{ .Values.b64ClientId }}
                   client_name: {{ .Values.clientName }}
-                  service_name: {{ .Values.serviceName }}
+                  service_name: {{ .Values.clusterName }}
         clients:
           - url: https://logs-prod-us-central1.grafana.net/api/prom/push
             basic_auth:
