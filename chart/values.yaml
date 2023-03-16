@@ -6,9 +6,3 @@ clientName: ""
 clusterName: ""
 # -- plain text namespace to deploy the gmaestro
 namespace: "default"
-
-secrets:
-  # -- grafana auth-key for metrics
-  grafanaMetricsAuthKey: ""
-  # -- grafana auth-key for logs
-  grafanaLogsAuthKey: ""
