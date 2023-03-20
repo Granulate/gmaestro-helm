@@ -4,7 +4,7 @@ metadata:
   name: granulate-cluster-role
 rules:
 - apiGroups:
-  - ""
+  - ''
   - apps
   - extensions
   resources:
@@ -24,7 +24,7 @@ rules:
   verbs:
   - '*'
 - apiGroups:
-  - ""
+  - ''
   - apps
   - extensions
   - policy
@@ -44,7 +44,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - ""
+  - ''
   resources:
   - nodes/spec
   - nodes/stats
@@ -179,7 +179,7 @@ rules:
   verbs:
   - '*'
 - apiGroups:
-  - ""
+  - ''
   resourceNames:
   - grafana-config
   resources:
