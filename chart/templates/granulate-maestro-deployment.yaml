@@ -4,7 +4,7 @@ metadata:
   labels:
     app: granulate-maestro
   name: granulate-maestro
-  namespace: default
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
@@ -42,7 +42,5 @@ spec:
           requests:
             cpu: 1
             memory: 1.5Gi
-      imagePullSecrets:
-      - name: granulate-secret
       serviceAccountName: granulate-service-account
       terminationGracePeriodSeconds: 3
