@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: granulate-maestro
   name: granulate-maestro
   namespace: {{ .Values.namespace }}
 spec:
@@ -19,18 +21,8 @@ spec:
           value: {{ .Values.b64ClientId }}
         - name: MAESTRO_SERVICE_NAME
           value: {{ .Values.clusterName }}
-        - name: MAESTRO_DISABLE_CONFIGURATOR_SERVICE
-          value: 'FALSE'
-        - name: LOGS_ENABLE_STDOUT
-          value: '1'
         - name: MAESTRO_RUN_ON_K8S
           value: 'TRUE'
-        - name: MAESTRO_PROMETHEUS_PORT
-          value: '8000'
-        - name: LOGS_DIR
-          value: /logs
-        - name: LOG_FILENAME
-          value: maestro.log
         - name: K8S_NODE_NAME
           valueFrom:
             fieldRef:
@@ -43,42 +35,12 @@ spec:
           value: https://containerunits.granulate.io
         image: index.docker.io/granulate/maestro:latest
         name: granulate-maestro
-        ports:
-        - containerPort: 8000
         resources:
           limits:
-            cpu: 1
-            memory: 1Gi
+            cpu: 2
+            memory: 2.5Gi
           requests:
-            cpu: 50m
-            memory: 256Mi
-        volumeMounts:
-        - mountPath: /logs
-          name: maestro-logs
-      - args:
-        - -config.file=/etc/agent/agent.yaml
-        command:
-        - /bin/agent
-        env:
-        - name: HOSTNAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        image: grafana/agent:v0.21.2
-        name: grafana-agent
-        ports:
-        - containerPort: 12345
-          name: http-metrics
-        volumeMounts:
-        - mountPath: /etc/agent
-          name: grafana-config-volume
-        - mountPath: /var/log
-          name: maestro-logs
+            cpu: 1
+            memory: 1.5Gi
       serviceAccountName: granulate-service-account
       terminationGracePeriodSeconds: 3
-      volumes:
-      - emptyDir: {}
-        name: maestro-logs
-      - configMap:
-          name: grafana-config
-        name: grafana-config-volume
