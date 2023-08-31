@@ -51,8 +51,6 @@ spec:
           runAsNonRoot: false
           seccompProfile:
             type: RuntimeDefault
-      imagePullSecrets:
-      - name: granulate-secret
       priorityClassName: granulate-high-priority
       serviceAccountName: granulate-service-account
       terminationGracePeriodSeconds: 3
