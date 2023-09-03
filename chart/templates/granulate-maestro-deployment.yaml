@@ -35,12 +35,22 @@ spec:
           value: https://containerunits.granulate.io
         image: index.docker.io/granulate/maestro:latest
         name: granulate-maestro
+        ports:
+        - containerPort: 8443
         resources:
           limits:
             cpu: 2
-            memory: 2.5Gi
+            memory: 1.25Gi
           requests:
             cpu: 1
-            memory: 1.5Gi
+            memory: 800Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+          seccompProfile:
+            type: RuntimeDefault
+      priorityClassName: granulate-high-priority
       serviceAccountName: granulate-service-account
       terminationGracePeriodSeconds: 3

@@ -10,26 +10,34 @@ rules:
   resources:
   - nodes
   - pods
+  - services
   - deployments
   - daemonsets
   - statefulsets
   - replicasets
   - replicationcontrollers
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - update
+  - patch
 - apiGroups:
   - autoscaling
   resources:
   - horizontalpodautoscalers
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - update
+  - patch
 - apiGroups:
   - ''
   - apps
   - extensions
   - policy
   resources:
-  - services
   - endpoints
   - namespaces
   - limitranges
@@ -53,14 +61,6 @@ rules:
   verbs:
   - get
 - apiGroups:
-  - rbac.authorization.k8s.io
-  resourceNames:
-  - granulate-cluster-role
-  resources:
-  - clusterroles
-  verbs:
-  - get
-- apiGroups:
   - metrics.k8s.io
   resources:
   - '*'
@@ -73,22 +73,23 @@ rules:
   resources:
   - '*'
   verbs:
-  - list
   - get
+  - list
   - watch
 - apiGroups:
   - custom.metrics.k8s.io
   resources:
   - '*'
   verbs:
-  - list
   - get
+  - list
   - watch
 - nonResourceURLs:
   - /version
   - /healthz
   - /healthz/*
   - /metrics
+  - /metrics/cadvisor
   verbs:
   - get
 - apiGroups:
@@ -102,13 +103,19 @@ rules:
   - clusteranalysistemplates
   - analysisruns
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - update
+  - patch
 - apiGroups:
   - apiregistration.k8s.io
   resources:
   - '*'
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
 - apiGroups:
   - sparkoperator.k8s.io
   resources:
@@ -117,20 +124,32 @@ rules:
   - scheduledsparkapplications
   - scheduledsparkapplications/status
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - update
+  - patch
 - apiGroups:
   - batch
   resources:
   - cronjobs
   - jobs
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - update
+  - patch
 - apiGroups:
   - apiextensions.k8s.io
   resources:
   - customresourcedefinitions
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - update
+  - patch
 - apiGroups:
   - admissionregistration.k8s.io
   resources:
@@ -138,7 +157,9 @@ rules:
   - validatingwebhookconfigurations
   - imagepolicywebhook
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
 - apiGroups:
   - keda.sh
   resources:
@@ -153,14 +174,22 @@ rules:
   - clustertriggerauthentications
   - clustertriggerauthentications/status
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - update
+  - patch
 - apiGroups:
   - flinkoperator.k8s.io
   resources:
   - flinkclusters
   - flinkclusters/status
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - update
+  - patch
 - apiGroups:
   - flink.apache.org
   resources:
@@ -169,7 +198,11 @@ rules:
   - flinksessionjobs
   - flinksessionjobs/status
   verbs:
-  - '*'
+  - get
+  - list
+  - watch
+  - update
+  - patch
 - apiGroups:
   - apps
   resourceNames:
@@ -181,8 +214,71 @@ rules:
 - apiGroups:
   - ''
   resourceNames:
+  - granulate-service-account
+  resources:
+  - serviceaccounts
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resourceNames:
+  - granulate-cluster-role
+  resources:
+  - clusterroles
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resourceNames:
+  - granulate-cluster-role-binding
+  resources:
+  - clusterrolebindings
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resourceNames:
   - grafana-config
+  - argocd-cm
   resources:
   - configmaps
   verbs:
   - '*'
+- apiGroups:
+  - ''
+  resourceNames:
+  - granulate-maestro-admission-controller-service
+  resources:
+  - services
+  verbs:
+  - '*'
+- apiGroups:
+  - ''
+  resources:
+  - services
+  verbs:
+  - create
+- apiGroups:
+  - admissionregistration.k8s.io
+  resourceNames:
+  - granulate-maestro-admission-controller.granulate.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  - imagepolicywebhook
+  verbs:
+  - '*'
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  - imagepolicywebhook
+  verbs:
+  - create
